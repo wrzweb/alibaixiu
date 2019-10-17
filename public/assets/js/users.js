@@ -1,4 +1,5 @@
 //ajax数据
+//展示用户数据
 $.ajax({
     type:'get',
     url:'/users',
@@ -12,7 +13,7 @@ $.ajax({
     }
   
 })
-//表单提交
+//添加用户表单提交
   $('#userForm').on('submit',function(){
       var serialize=$(this).serialize();
       $.ajax({
@@ -20,15 +21,20 @@ $.ajax({
           url:'/users',
           data:serialize,
           success:function(res) {
+              console.log(res);
+              
               location.reload();//刷新当前页面
-              return false;//代码不向下进行
+            
           }
+          
       })
+      return false;//代码不向下进行
 
   })
   //头像上传
-  $('#tobody').on('change','#avatar',function(){
+  $('#modifyBox').on('change','#avatar',function(){
       var fd=new FormData();
+      //往FormData添加键值
       fd.append('avatar',this.files[0]);
       $.ajax({
           type:'post',
@@ -46,6 +52,10 @@ $.ajax({
               $('#hiddenImg').val(res[0].avatar);
             // 添加src属性值为图片的路径
               $('#preview').attr('src',res[0].avatar)
+          },
+          error:function(err) {
+              console.log(err);
+              
           }
       })
 
@@ -70,6 +80,7 @@ $.ajax({
   $('#modifyBox').on('submit','#modifyForm',function(){
     var id=$(this).attr('data-id');
     console.log(id);
+    //收集表单数据
     var data= $(this).serialize();
     console.log(data);
     
@@ -81,7 +92,7 @@ $.ajax({
             location.reload();
         }
     })
-   
+   //阻止表单默认事件
     return false;
     
     
@@ -89,6 +100,7 @@ $.ajax({
   })
   //删除功能
   $('#tbody').on('click','.del',function(){
+    //   提示框显示确定或取消
       if(confirm('您确定要删除吗?'));
       var id=$(this).attr('data-id');
       $.ajax({
@@ -105,21 +117,27 @@ $.ajax({
       var bool=$(this).prop('checked');
       //找到tbody下面所有的checkbox，给它们添加checked效果
       var checkList=$('#tbody input[type="checkbox"]');//jq对象，把tbody中所有的input找到
+    //   添加键值
       checkList.prop('checked',bool);
       if(bool==true) {
+        // 批量删除显示
         $('#deleteAll').show();
       }else {
+        // 批量删除隐藏
         $('#deleteAll').hide();
 
       }
   })
   //全选效果切换
   $('#tbody').on('change','input[type="checkbox"]',function(){
+      //如果小复选框的长度完全等于小复选框勾选的长度
       if($('#tbody input[type="checkbox"]').length==$('#tbody input[type="checkbox"]:checked').length){
-  $('#checkAll').prop('checked',true);
+        // 大复选框勾选
+        $('#checkAll').prop('checked',true);
       }else {
         $('#checkAll').prop('checked',false);
       }
+    //   小复选框勾选的长度大于0
       if($('#tbody input[type="checkbox"]:checked').length>0) {
         $('#deleteAll').show();
       }else {
@@ -130,19 +148,30 @@ $.ajax({
   $('#deleteAll').on('click',function(){
       //选出来所有打勾的checkbox
       var checkList=$('#tbody input[type="checkbox"]:checked');
+     
+      
       var str='';
+      //因为有多个复选框所以要遍历
       checkList.each(function(index,item){
+          //id
           str+=$(item).attr('data-id')+'-'
+          
+          
       })
-     str=str.substr(0,str.length-1)
+      //截取字符串
+     str=str.substr(0,str.length-1);
+     console.log(str);
+     
+     
     $.ajax({
         type:'delete',
         url:'/users/'+str,
-        success:function(res){
-            console.log(res);
+        success:function(){
+            location.reload();
             
            
-        }
+        },
+       
     })
      
       

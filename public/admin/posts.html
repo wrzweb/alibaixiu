@@ -107,6 +107,7 @@
       <td>{{$value.title}}</td>
       <td>{{$value.author.nickName}}</td>
       <td>{{$value.category.title}}</td>
+      <!-- 发布时间 -->
       <td class="text-center">{{$imports.dateFormat($value.createAt)}}</td>
       <td class="text-center">{{$value.state==0?'未发布':'已发布'}}</td>
       <td class="text-center">

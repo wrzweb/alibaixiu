@@ -1,3 +1,4 @@
+//修改密码
 $('#modifyForm').on('submit',function(){
     var data=$(this).serialize();
     $.ajax({
