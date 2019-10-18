@@ -17,8 +17,8 @@ $('#feature').on('change',function(){
         type:'post',
         url:'/upload',
         data:fd,
-        processData:false,
-        contentType:false,
+        processData:false,//不对data数据进行处理
+        contentType:false,//避免 JQuery 对其操作
         success:function(res) {
             console.log(res);
             $('.thumbnail').attr('src',res[0].avatar).show();
@@ -30,6 +30,7 @@ $('#feature').on('change',function(){
 
 })
 $('#addForm').on('submit',function(){
+    //获取表单数据
     var data=$(this).serialize();
     $.ajax({
         type:'post',

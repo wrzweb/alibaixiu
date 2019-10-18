@@ -13,7 +13,9 @@ $('#logo').on('change',function(){
         processData:false,
         contentType:false,
         success:function(res) {
-           $('#hiddenLogin').val(res[0].logo)
+            console.log(res);
+            
+           $('#hiddenLogo').val(res[0].logo)
             
         }
     })

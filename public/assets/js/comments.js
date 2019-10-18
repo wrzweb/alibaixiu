@@ -1,7 +1,10 @@
+//获取评论列表
 $.ajax({
     type:'get',
     url:'/comments',
     success:function(res) {
+        console.log(res);
+        
        var html=template('commentsTpl',res);
        $('#commentsBox').html(html);
        var page=template('pageTpl',res);
@@ -34,13 +37,15 @@ function changePage(pageNum) {
 }
 //批准驳回功能
 $('#commentsBox').on('click','.status',function(){
+    //获取id
     var id=$(this).parent().attr('data-id');
+    //获取状态 0/1
     var status=$(this).parent().attr('data-status');
    $.ajax({
        type:'put',
        url:`/comments/${id}`,
        data:{
-           state:status==1?0:1
+           state:status==1?0:1 //判断状态
        },
        success:function(res) {
            location.reload();
@@ -55,9 +60,6 @@ $('#commentsBox').on('click','.delete',function() {
         $.ajax({
             type:'delete',
             url:`/comments/${id}`,
-            data:{
-                state:status==1?0:1
-            },
             success:function(res) {
                 location.reload();
             }

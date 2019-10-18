@@ -93,10 +93,12 @@
       <td>{{$value.author.nickName}}</td>
       <td>{{$value.content}}</td>
       <td>{{$value.post.title}}</td>
+      <!-- 设置日期格式 -->
       <td>{{$imports.dateFormat($value.createAt)}}</td>
       <td>{{$value.state==0?'未批准':'批准'}}</td>
       <td class="text-center" data-id="{{$value._id}}"data-status="{{$value.state}}">
         {{if $value.state==0}}
+        <!-- 当状态为未批准时操作按钮为批准 -->
         <a href="post-add.html" class="btn btn-info btn-xs status">批准</a>
         {{else}}
         <a href="post-add.html" class="btn btn-warning btn-xs status">驳回</a>
@@ -113,7 +115,7 @@
           <li><a href="#" onclick='changePage({{page-1}})'>上一页</a></li>
           {{/if}}
           {{each display}}
-          <li class="{{$value==page?'active':''}}"><a href="#" onclick='changePage({{value}})'>{{$value}}</a></li>
+          <li class="{{$value==page?'active':''}}"><a href="#" onclick='changePage({{$value}})'>{{$value}}</a></li>
           {{/each}}
           {{if page < pages}}
           <li><a href="#" onclick='changePage({{page+1}})'>下一页</a></li>
