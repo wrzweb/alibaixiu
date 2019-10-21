@@ -11,7 +11,7 @@ $.ajax({
     success:function(res) {
         console.log(res);
         var html=template('modifyTpl',{data:res});
-        $('#modifyForm').html(html);
+        $('#modifyBox').html(html);
      
     }
 })
