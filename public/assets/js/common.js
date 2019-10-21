@@ -17,3 +17,15 @@ $('#logout').on('click',function(){
         })
     }
 })
+
+//索要登录用户信息
+$.ajax({
+    type:'get',
+    url:`/users/${userId}`,
+    success:function(res) {
+        console.log(res);
+        
+        $('.profile .name').text(res.nickName);
+        $('.profile img.avatar').attr('src',res.avatar);
+    }
+})

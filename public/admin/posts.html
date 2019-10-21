@@ -1,3 +1,7 @@
+<script src="/login/status"></script>
+<script>
+if(!isLogin)location.href='login.html';
+</script>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -6,6 +10,7 @@
   <link rel="stylesheet" href="../assets/vendors/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="../assets/vendors/font-awesome/css/font-awesome.css">
   <link rel="stylesheet" href="../assets/css/admin.css">
+  
 </head>
 <body>
 
@@ -97,6 +102,7 @@
   <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
   <script src="../assets/vendors/art-template/template-web.js"></script>
   <script src="../assets/js/posts.js"></script>
+  <script src="../assets/js/common.js"></script>
   <script type='text/html' id="postsTpl">
     {{each records}}
     <tr>
@@ -106,8 +112,8 @@
       <!-- 发布时间 -->
       <td class="text-center">{{$imports.dateFormat($value.createAt)}}</td>
       <td class="text-center">{{$value.state==0?'未发布':'已发布'}}</td>
-      <td class="text-center">
-        <a href="javascript:;" class="btn btn-default btn-xs">编辑</a>
+      <td class="text-center" id='postsDelete'>
+        <a href="javascript:;" class="btn btn-default btn-xs modify" data-id='{{$value._id}}'>编辑</a>
         <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
       </td>
     </tr>
