@@ -72,11 +72,4 @@ $('#filterForm').on('submit',function(){
     })
    return false
 })
-//文章编辑功能
 
-$('#postsBox').on('click','.modify',function(){
-    var id=$(this).attr('data-id');
-          location.href=`post-Modify.html?id=${id}`;
-          
- })
- 
